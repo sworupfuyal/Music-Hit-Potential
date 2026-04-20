@@ -1,0 +1,2 @@
+import joblib
+joblib.dump(model, "models/random_forest.pkl")

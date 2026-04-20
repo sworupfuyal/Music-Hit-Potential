@@ -1,0 +1,29 @@
+# Python cache and bytecode
+__pycache__/
+*.py[cod]
+
+# Virtual environments
+venv/
+.venv/
+env/
+
+# Notebook checkpoints
+.ipynb_checkpoints/
+
+# Local artifacts
+models/saved_models/*.pkl
+models/saved_models/*.joblib
+reports/figures/*
+reports/results/*
+
+# Keep folders tracked
+!reports/figures/.gitkeep
+!reports/results/.gitkeep
+!models/saved_models/.gitkeep
+!data/raw/.gitkeep
+!data/processed/.gitkeep
+
+# OS/editor
+.DS_Store
+Thumbs.db
+.vscode/
