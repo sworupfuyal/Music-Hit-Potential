@@ -1,4 +1,9 @@
-"""Model utilities for training and inference."""
+"""Model utilities for training and inference.
+
+Hyperparameters here are the ones selected by grid search under 5-fold stratified CV
+in `scripts/run_experiments.py`; the chosen values are recorded per model in
+reports/results/model_comparison.csv.
+"""
 
 from typing import Any
 
@@ -16,6 +21,7 @@ def build_baseline_model(random_state: int = 42) -> LogisticRegression:
 	"""Return the baseline logistic regression classifier."""
 	return LogisticRegression(
 		max_iter=2000,
+		C=0.1,  # grid-searched
 		class_weight="balanced",
 		random_state=random_state,
 	)
@@ -26,9 +32,10 @@ def build_candidate_models(random_state: int = 42) -> dict[str, Any]:
 	models: dict[str, Any] = {
 		"logistic_regression": build_baseline_model(random_state=random_state),
 		"random_forest": RandomForestClassifier(
-			n_estimators=300,
+			n_estimators=400,  # grid-searched
 			max_depth=None,
 			min_samples_split=2,
+			min_samples_leaf=5,  # grid-searched
 			class_weight="balanced",
 			random_state=random_state,
 			n_jobs=-1,
@@ -37,9 +44,9 @@ def build_candidate_models(random_state: int = 42) -> dict[str, Any]:
 
 	if XGBClassifier is not None:
 		models["xgboost"] = XGBClassifier(
-			n_estimators=300,
-			learning_rate=0.05,
-			max_depth=6,
+			n_estimators=200,  # grid-searched
+			learning_rate=0.15,  # grid-searched
+			max_depth=4,  # grid-searched
 			subsample=0.9,
 			colsample_bytree=0.9,
 			random_state=random_state,
@@ -73,4 +80,3 @@ def predict_with_scores(model: Pipeline, x_test):
 		y_score = None
 
 	return y_pred, y_score
-

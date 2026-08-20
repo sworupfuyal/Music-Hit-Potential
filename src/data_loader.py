@@ -46,4 +46,3 @@ def load_processed_csv(file_name: str) -> pd.DataFrame:
 	if not csv_path.exists():
 		raise FileNotFoundError(f"Processed data file not found: {csv_path}")
 	return pd.read_csv(csv_path)
-

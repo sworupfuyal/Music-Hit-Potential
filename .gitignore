@@ -23,6 +23,18 @@ reports/results/*
 !data/raw/.gitkeep
 !data/processed/.gitkeep
 
+# Node / Next.js frontend
+node_modules/
+frontend/.next/
+frontend/out/
+frontend/next-env.d.ts
+*.tsbuildinfo
+
+# Local environment
+.env
+.env.local
+frontend/.env.local
+
 # OS/editor
 .DS_Store
 Thumbs.db

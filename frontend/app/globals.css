@@ -1,0 +1,117 @@
+@import "tailwindcss";
+
+/**
+ * Light "streaming app" theme: ivory canvas, white cards, green accent.
+ *
+ * Accent and status colours are the darker steps of each hue, chosen so text and
+ * marks clear WCAG contrast on white. The lighter brand tints are for fills only,
+ * never for text.
+ */
+@theme {
+  --color-canvas: #f6f6f4;
+  --color-surface: #ffffff;
+  --color-elevated: #fbfbfa;
+  --color-edge: #e3e5ea;
+  --color-edge-strong: #cfd3da;
+  --color-ink: #14161a;
+  --color-muted: #5f6673;
+
+  --color-brand: #0b8f45;
+  --color-brand-strong: #087038;
+  --color-brand-tint: #e8f6ee;
+
+  --color-amber: #a8700a;
+  --color-amber-tint: #fdf3e2;
+  --color-danger: #c2261b;
+  --color-danger-tint: #fdecea;
+  --color-neon: #0090a7;
+  --color-pink: #c1006a;
+
+  --font-sans: ui-sans-serif, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+html {
+  color-scheme: light;
+}
+
+body {
+  background-color: var(--color-canvas);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+}
+
+/* Plotly draws its own background; keep its toolbar from painting a grey slab. */
+.js-plotly-plot .plotly .modebar {
+  background: transparent !important;
+}
+
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-rise {
+  animation: rise-in 0.35s ease-out both;
+}
+
+/* --- Musical motifs ----------------------------------------------------- */
+
+/* Equaliser bars. Each bar gets its own delay so the group reads as audio
+   levels rather than a synchronised pulse. */
+@keyframes eq-bounce {
+  0%,
+  100% {
+    transform: scaleY(0.28);
+  }
+  50% {
+    transform: scaleY(1);
+  }
+}
+
+.eq-bar {
+  transform-origin: bottom;
+  animation: eq-bounce 0.9s ease-in-out infinite;
+}
+
+.eq-bar:nth-child(1) {
+  animation-delay: -0.5s;
+}
+.eq-bar:nth-child(2) {
+  animation-delay: -0.2s;
+}
+.eq-bar:nth-child(3) {
+  animation-delay: -0.75s;
+}
+.eq-bar:nth-child(4) {
+  animation-delay: -0.35s;
+}
+
+/* Frozen state for when nothing is playing/running. */
+.eq-bar-idle {
+  animation: none;
+  transform: scaleY(0.4);
+}
+
+@keyframes spin-disc {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-disc {
+  animation: spin-disc 3.2s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .eq-bar,
+  .animate-disc,
+  .animate-rise {
+    animation: none;
+  }
+}

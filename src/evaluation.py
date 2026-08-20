@@ -43,4 +43,3 @@ def metrics_by_group(
 		)
 
 	return pd.DataFrame(rows).sort_values("f1_macro", ascending=False)
-
